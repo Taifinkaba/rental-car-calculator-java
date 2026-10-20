@@ -4,12 +4,14 @@ import java.util.Scanner;
 
 public class RentalCarCalculator {
     public static void main(String[] args) {
+        // storing each input from our methods
         String pickUpDate = pickUpDate();
         int rentalDays = rentalDays();
         String electronicTollTag = electronicTollTag();
         String gPS = gPS();
         String roadsideAssistance = roadsideAssistance();
         int userAge = userAge();
+        double totalCost = totalCost(pickUpDate, rentalDays, electronicTollTag, gPS, roadsideAssistance, userAge);
     }
 
     public static String pickUpDate() {
@@ -26,9 +28,9 @@ public class RentalCarCalculator {
         Scanner myScanner = new Scanner(System.in);
 
         System.out.println("How many days will you be renting the car for?");
-        int pickUpDate = myScanner.nextInt();
+        int rentalDays = myScanner.nextInt();
 
-        return pickUpDate;
+        return rentalDays;
 
     }
 
@@ -69,6 +71,68 @@ public class RentalCarCalculator {
         return userAge;
 
     }
+
+    public static double totalCost(String pickUpDate, int rentalDays, String electronicTollTag, String gPS, String roadsideAssistance, int userAge) {
+        // init cost for basic rental, store add-ons with optional
+        double basicTotal = 29.99 * rentalDays;
+        double addOns = 0;
+        double totalCost = 0;
+        double underAgeSurcharge = 0;
+
+        // switch cases to calculate total optional cost
+        switch (electronicTollTag.toLowerCase()){
+            case "yes" -> {
+                addOns += 3.95 * rentalDays;
+            }
+            case "no" -> {
+                // nothing gets added to addOns
+            }
+            default -> {
+                System.out.println("Error: Electronic Toll Tag not detected");
+            }
+        }
+
+        // switch to add on gps cost
+        switch (gPS.toLowerCase()){
+            case "yes" -> {
+                addOns += 2.95 * rentalDays;
+            }
+            case "no" -> {
+                // nothing gets added to addOns
+            }
+            default -> {
+                System.out.println("Error: GPS not detected");
+            }
+        }
+
+        // switch to add on road side assistance
+        switch (roadsideAssistance.toLowerCase()){
+            case "yes" -> {
+                addOns += 3.95 * rentalDays;
+            }
+            case "no" -> {
+                // nothing gets added to addOns
+            }
+            default -> {
+                System.out.println("Error: Road Side Assistance not detected");
+            }
+        }
+
+        // 30% more basic if under 25
+        if(userAge < 25) underAgeSurcharge = basicTotal * 0.30;
+
+        // combine all to total cost
+        totalCost = basicTotal + addOns + underAgeSurcharge;
+
+        // printout the info user entered
+        System.out.printf("Pickup date: %s%n", pickUpDate);
+        System.out.printf("Basic car rental: $%.2f%n", basicTotal);
+        System.out.printf("Options cost: $%.2f%n", addOns);
+        System.out.printf("Underage driver surcharge: $%.2f%n", underAgeSurcharge);
+        System.out.printf("Total cost: $%.2f%n", totalCost);
+        return totalCost;
+    }
+
 
 
 }
