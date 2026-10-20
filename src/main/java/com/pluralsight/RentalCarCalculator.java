@@ -14,6 +14,7 @@ public class RentalCarCalculator {
         double totalCost = totalCost(pickUpDate, rentalDays, electronicTollTag, gPS, roadsideAssistance, userAge);
     }
 
+    // pick up date method
     public static String pickUpDate() {
         Scanner myScanner = new Scanner(System.in);
 
@@ -24,6 +25,7 @@ public class RentalCarCalculator {
 
     }
 
+    // rental days method
     public static int rentalDays() {
         Scanner myScanner = new Scanner(System.in);
 
@@ -34,6 +36,7 @@ public class RentalCarCalculator {
 
     }
 
+    // electronic toll tag method
     public static String electronicTollTag() {
         Scanner myScanner = new Scanner(System.in);
 
@@ -43,6 +46,7 @@ public class RentalCarCalculator {
         return electronicTollTag;
     }
 
+    // gps method
     public static String gPS() {
         Scanner myScanner = new Scanner(System.in);
 
@@ -53,6 +57,7 @@ public class RentalCarCalculator {
 
     }
 
+    // road side assistance method
     public static String roadsideAssistance() {
         Scanner myScanner = new Scanner(System.in);
 
@@ -62,6 +67,7 @@ public class RentalCarCalculator {
         return roadsideAssistance;
     }
 
+    // age method
     public static int userAge() {
         Scanner myScanner = new Scanner(System.in);
 
@@ -72,12 +78,10 @@ public class RentalCarCalculator {
 
     }
 
+    // total cost calculator method
     public static double totalCost(String pickUpDate, int rentalDays, String electronicTollTag, String gPS, String roadsideAssistance, int userAge) {
         // init cost for basic rental, store add-ons with optional
-        double basicTotal = 29.99 * rentalDays;
-        double addOns = 0;
-        double totalCost = 0;
-        double underAgeSurcharge = 0;
+        double basicTotal = 29.99 * rentalDays, addOns = 0, totalCost = 0, underAgeSurcharge = 0;
 
         // switch cases to calculate total optional cost
         switch (electronicTollTag.toLowerCase()){
@@ -130,6 +134,7 @@ public class RentalCarCalculator {
         System.out.printf("Options cost: $%.2f%n", addOns);
         System.out.printf("Underage driver surcharge: $%.2f%n", underAgeSurcharge);
         System.out.printf("Total cost: $%.2f%n", totalCost);
+
         return totalCost;
     }
 
